@@ -10,7 +10,10 @@ All the information required to render such diagrams is extracted via Apex code 
 This should definitely be replace by code that uses the new [Tooling API](http://www.salesforce.com/us/developer/docs/api_toolingpre/index.htm). 
 Feel free to collaborate.
 
-## Render UML Class diagrams ##
+## /apex/classDiagramCreator page ##
+
+This page renders a UML class diagram that show classes, their attribute, methods, inner classes and relations to other classes.
+It also calculates basic complexity metrics like LOC and Cyclomatic complexity.
 
 1.  Open page YOUR_ORG_URL/apex/classDiagramCreator
 2.  Select classes (If you choose too many or too complex classes you might get Limit errors.)
@@ -19,7 +22,9 @@ Feel free to collaborate.
 
 > ![Page /apex/classDiagramCreator](https://dl.dropboxusercontent.com/u/240888/plantuml4force_class.png)
 
-## Render ER diagrams ##
+## /apex/erdCreator page ##
+
+This page render a UML class diagram that show standard and custom SObjects, their fields for a given permission set and related metadata (e.g. pages and triggers)
 
 1.  Open page YOUR_ORG_URL/apex/erdCreator
 2.  Select SObjects (If you choose too many or too complex classes you might get Limit errors.)
