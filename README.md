@@ -36,3 +36,4 @@ This app makes use of third-party components also hosted on GitHub:
 
 - [Apex-Select-Option-Sorting](https://github.com/abhinavguptas/Apex-Select-Option-Sorting), an Apex sort utility class for SelectOptions
 - [Multiselect Component](https://github.com/metadaddy-sfdc/Visualforce-Multiselect-Picklist), a Multiselect Picklist Visualforce Component
+- [PlantUML Javascript bridge](http://plantuml.sourceforge.net/codejavascript2.html) A javascript Deflate algorithm to create URL to call the plantuml.com image server
