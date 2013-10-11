@@ -1,4 +1,31 @@
-plantuml4force
-==============
+# plantuml4force - PlantUML for Force.com  #
 
-plantuml4force
+plantuml4force is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
+To render the diagrams is is using [PlantUML](http://plantuml.sourceforge.net/).
+
+PlantUML is a free and open source UML tool for drawing UML diagrams from a simple and human readable text description. It ca be used as a stand-alone application or can be used from many different IDEs.[1] Dependencies for PlantUML are a Java virtual machine and an installation of Graphviz.
+To create the UML diagrams, PlantUML has a meta-language defined that allows the diagram creator to describe the UML as a series of text statements which the graphics engine translates into standard UML notation. The graphics engine is written in Java and is distributed in both JAR and source code form. [2]
+
+All the information required to render such diagrams is extracted via Apex code and very ugly ;) and unstable Regular Expressions. 
+This should definitely be replace by code that uses the new [Tooling API](http://www.salesforce.com/us/developer/docs/api_toolingpre/index.htm). 
+Feel free to collaborate.
+
+## Render UML Class diagrams ##
+
+1.  Open page YOUR_ORG_URL/apex/classDiagramCreator
+2.  Select classes (If you choose too many or too complex classes you might get Limit errors.)
+3   Choose some options
+4.  Wait! (IMPORTANT as the main work is done in Javascript and on a very slow server)
+
+> ![Page /apex/classDiagramCreator](https://dl.dropboxusercontent.com/u/240888/plantuml4force_class.png)
+
+## Render ER diagrams ##
+
+1.  Open page YOUR_ORG_URL/apex/erdCreator
+2.  Select SObjects (If you choose too many or too complex classes you might get Limit errors.)
+3   Choose some options
+4.  Wait! (IMPORTANT as the main work is done in Javascript and on a very slow server)
+
+and for SObjects including field permissions and related metadata (pages, trigger,...)
+
+> ![Page /apex/erdCreator](https://dl.dropboxusercontent.com/u/240888/plantuml4force_erd.png)
