@@ -1,7 +1,7 @@
 # plantuml4force - PlantUML for Force.com  #
 
 plantuml4force is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
-To render the diagrams is is using [PlantUML](http://plantuml.sourceforge.net/).
+The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
 
 > PlantUML is a free and open source UML tool for drawing UML diagrams from a simple and human readable text description. It ca be used as a stand-alone application or can be used from many different IDEs.[1] Dependencies for PlantUML are a Java virtual machine and an installation of Graphviz.
 To create the UML diagrams, PlantUML has a meta-language defined that allows the diagram creator to describe the UML as a series of text statements which the graphics engine translates into standard UML notation. The graphics engine is written in Java and is distributed in both JAR and source code form. [2]
