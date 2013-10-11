@@ -29,3 +29,10 @@ Feel free to collaborate.
 and for SObjects including field permissions and related metadata (pages, trigger,...)
 
 > ![Page /apex/erdCreator](https://dl.dropboxusercontent.com/u/240888/plantuml4force_erd.png)
+
+## Third-party Code ##
+
+This app makes use of third-party components also hosted on GitHub:
+
+- [Apex-Select-Option-Sorting](https://github.com/abhinavguptas/Apex-Select-Option-Sorting), an Apex sort utility class for SelectOptions
+- [Multiselect Component](https://github.com/metadaddy-sfdc/Visualforce-Multiselect-Picklist), a Multiselect Picklist Visualforce Component
