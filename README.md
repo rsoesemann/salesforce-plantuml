@@ -1,5 +1,10 @@
 # PlantUML for Force.com  #
 
+<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=plantuml4force">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+</a>
+
 plantuml4force is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
 The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
 
