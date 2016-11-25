@@ -2,6 +2,5 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>plantuml4force</fullName>
     <apiAccessLevel>Unrestricted</apiAccessLevel>
-    <namespacePrefix>U2G_ERD</namespacePrefix>
     <version>28.0</version>
 </Package>
