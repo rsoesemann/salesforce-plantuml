@@ -1,10 +1,16 @@
 engines:
-  apex:
+  eslint:
+    enabled: true
+    config:
+      extensions:
+      - .resource
+  apexmetrics:
     enabled: true
 ratings:
   paths:
     - "**.cls"
     - "**.trigger"
+    - "**_js.resource"
 exclude_paths:
   - "src/documents/"
   - "src/classes/MetadataService.cls"
@@ -79,7 +85,6 @@ exclude_paths:
   - "**.sharingRules"
   - "**.sharingSet"
   - "**.site" 
-  - "**.resource"
   - "**.synonymDictionary"
   - "**.transactionSecurityPolicy"  
   - "**.workflow"
