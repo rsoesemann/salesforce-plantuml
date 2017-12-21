@@ -1,4 +1,4 @@
-# PlantUML for Force.com  #
+# PlantUML diagram generator for Salesforce orgs #
 
 <a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=plantuml4force">
   <img alt="Deploy to Salesforce"
