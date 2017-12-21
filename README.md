@@ -1,11 +1,11 @@
 # PlantUML diagram generator for Salesforce orgs #
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=plantuml4force">
+<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=SalesforcePlantUML">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
 
-plantuml4force is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
+SalesforcePlantUML is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
 The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
 
 > PlantUML is a free and open source UML tool for drawing UML diagrams from a simple and human readable text description. It ca be used as a stand-alone application or can be used from many different IDEs.[1] Dependencies for PlantUML are a Java virtual machine and an installation of Graphviz.
@@ -25,7 +25,7 @@ It also calculates basic complexity metrics like LOC and Cyclomatic complexity.
 3   Choose some options
 4.  Wait! (IMPORTANT as the main work is done in Javascript and on a very slow server)
 
-> ![Page /apex/classDiagramCreator](https://raw.github.com/rsoesemann/plantuml4force/master/resources/plantuml4force_class.png)
+> ![Page /apex/classDiagramCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_class.png)
 
 ## /apex/erdCreator page ##
 
@@ -38,7 +38,7 @@ This page render a UML class diagram that show standard and custom SObjects, the
 
 and for SObjects including field permissions and related metadata (pages, trigger,...)
 
-> ![Page /apex/erdCreator](https://raw.github.com/rsoesemann/plantuml4force/master/resources/plantuml4force_erd.png)
+> ![Page /apex/erdCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_erd.png)
 
 ## Third-party Code ##
 
