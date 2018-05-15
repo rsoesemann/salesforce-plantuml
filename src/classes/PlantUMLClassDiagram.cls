@@ -1,161 +1,115 @@
-<apex:page controller="ClassDiagramCreatorCtrl" sidebar="false" title="UML Class Diagram Creator">
-    <apex:sectionHeader title="Generate perfectly layouted UML class diagrams from your Force.com Apex classes" subtitle="UML Class Diagram Creator" />
-	
-	<apex:pageMessages />
-	
-    <apex:form >
-        <apex:pageBlock mode="maindetail" > 
-            <apex:pageBlockSection title="Select classes" columns="2" collapsible="false">
-            
-                <!-- Use opensource component https://github.com/metadaddy-sfdc/Visualforce-Multiselect-Picklist -->
-                <c:MultiselectPicklist leftLabel="Accessible Classes"
-                                       leftOptions="{!accessibleClasses}"
-                                       rightLabel="Selected Classes"
-                                       rightOptions="{!selectedClasses}"
-                                       size="14"
-                                       width="300px" />
-                                       
-                <apex:panelGrid columns="2">
-               		<apex:facet name="header">
-               			<apex:outputPanel layout="block" style="text-align:center;">
-	               			<h2>Display options:</h2>
-	               			<br/><br/>
-               			</apex:outputPanel>
-               		</apex:facet>
-               		
-               		<apex:outputLabel value="Show Public Variables?" for="showPublicVariables" />
-               		<apex:inputCheckbox value="{!classDiagram.showPublicVariables}" id="showPublicVariables" />
-               		
-               		<apex:outputLabel value="Show Public Methods?" for="showPublicMethods" />
-               		<apex:inputCheckbox value="{!classDiagram.showPublicMethods}" id="showPublicMethods" />
-               		
-               		<apex:outputLabel value="Show Metrics?" for="showMetrics" />
-               		<apex:inputCheckbox value="{!classDiagram.showMetrics}" id="showMetrics" />
-               		
-               		<apex:outputLabel value="Highlight high cyclomatic complexity?" for="showHighCC" />
-               		<apex:inputCheckbox value="{!classDiagram.highlightCC}" id="showHighCC" />
-               	</apex:panelGrid>                        
-                                       
-                <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  
-            </apex:pageBlockSection>
-            
-           	<apex:pageBlockSection title="Save image as file or URL" columns="1" collapsible="false" id="diagram">
-            	You can either Right-Click save this image as file or just reuse the image URL. It contains all thats needed to display it dynamically.
-               <br/>
-               <img class="plantuml" uml="{!classDiagram.plantUMLText}" />
-           	</apex:pageBlockSection>
-        </apex:pageBlock> 
-    </apex:form>
+public class PlantUMLClassDiagram {
+    public String plantUMLText { get; private set; }
     
-    <apex:includeScript value="{!$Resource.jquery_min_js}" />
-    <script type="text/javascript">
+    // Diagram options
+    public Boolean showPublicVariables { get; set; }
+    public Boolean showPublicMethods { get; set; }
+    public Boolean showMetrics { get; set; }
+    public Boolean highlightCC { get; set; }
+
     
-        <!-- Taken and slightly adapted to Salesforce from http://plantuml.sourceforge.net/jquery.html -->
-        $j = jQuery.noConflict();
+    public PlantUMLClassDiagram() {
+        this.plantUMLText = '';
+    }
+    
+
+    public void setClasses(Set<ApexParser.ParsedClass> classes) {
+        this.plantUMLText = 'skinparam packageStyle frame\n';
+        this.plantUMLText += '!define hiCC <size:12><&caret-right></size>\n';
+        this.plantUMLText += 'set namespaceSeparator ::\n';
         
-        $j(document).ready(function(){
-            plantuml_runonce();
-        });
-                
-        <!--  taken from https://github.com/johan/js-deflate -->
-        function encode64(data) {
-            r = "";
-            for (i = 0; i < data.length; i += 3) {
-                if (i + 2 == data.length) {
-                    r += append3bytes(data.charCodeAt(i), data.charCodeAt(i + 1), 0);
-                } else if (i + 1 == data.length) {
-                    r += append3bytes(data.charCodeAt(i), 0, 0);
-                } else {
-                    r += append3bytes(data.charCodeAt(i), data.charCodeAt(i + 1), data.charCodeAt(i + 2));
-                }
+        for(ApexParser.ParsedClass clazz : classes) {
+            this.plantUMLText += translateClass(clazz);
+        }
+    }
+    
+
+    // PRIVATE METHODS
+    
+    
+    private String translateClass(ApexParser.ParsedClass clazz) {
+        String text = translateRelations(clazz) + translateHeader(clazz) + translateMembers(clazz);
+        return text;
+    }
+    
+    private String translateRelations(ApexParser.ParsedClass clazz) {
+        String text = '';
+      
+        if(clazz.doesExtend) {
+            text += '\n' + clazz.name + ' --|> ' + clazz.superName;
+        }
+        if(clazz.doesImplement) {
+            for(String i: clazz.interfaces) {
+                text += '\ninterface ' + i;
+                text += '\n' + clazz.name + ' ..|> ' + i;
             }
-            return r;
+        }
+        for(ApexParser.ParsedClass innerClass : clazz.innerClasses) {
+            text += '\n' + translateHeader(innerClass) + '<< Inner >> ' + translateMembers(innerClass);
+            text += '\n' + clazz.name + ' +-- ' + innerClass.name; 
         }
         
-        function append3bytes(b1, b2, b3) {
-            c1 = b1 >> 2;
-            c2 = ((b1 & 0x3) << 4) | (b2 >> 4);
-            c3 = ((b2 & 0xF) << 2) | (b3 >> 6);
-            c4 = b3 & 0x3F;
-            r = "";
-            r += encode6bit(c1 & 0x3F);
-            r += encode6bit(c2 & 0x3F);
-            r += encode6bit(c3 & 0x3F);
-            r += encode6bit(c4 & 0x3F);
-            return r;
-        }
+        return text;
+    }
+    
         
-        function encode6bit(b) {
-            if (b < 10) {
-                return String.fromCharCode(48 + b);
-            }
-            b -= 10;
-            if (b < 26) {
-                return String.fromCharCode(65 + b);
-            }
-            b -= 26;
-            if (b < 26) {
-                return String.fromCharCode(97 + b);
-            }
-            b -= 26;
-            if (b == 0) {
-                return '-';
-            }
-            if (b == 1) {
-                return '_';
-            }
-            return '?';
+    private String translateHeader(ApexParser.ParsedClass clazz) {
+        String scope = '';
+        if(clazz.scope == 'static' || clazz.scope == 'abstract') {
+            scope = clazz.scope;
         }
+        String text = '\n' + scope + ' ' + clazz.type + ' '+ clazz.Name;
+        return text;
+    }
+    
         
-        var deflater = window.SharedWorker && new SharedWorker('{!$Resource.rawdeflate_js}');
-        if (deflater) {
-            deflater.port.addEventListener('message', done_deflating, false);
-            deflater.port.start();
-        } else if (window.Worker) {
-            deflater = new Worker('{!$Resource.rawdeflate_js}');
-            deflater.onmessage = done_deflating;
-        }
-        
-        function done_deflating(e) {
-            var done = 0;
-            $j("img").each(function () {
-                if (done == 1) return;
-                var u1 = $j(this).attr("src");
-                if (u1 != null) return;
-                var u2 = $j(this).attr("uml");
-                if (u2 == "") return;
-                $j(this).attr("src", "http://www.plantuml.com/plantuml/img/" + encode64(e.data));
-                $j(this).attr("uml", "");
-                done = 1;
-            });
-            plantuml_runonce();
-        }
-        
-        function plantuml_runonce() {
-            var done = 0;
-            $j("img.plantuml").each(function () {
-                if (done == 1) return;
-                var u1 = $j(this).attr("src");
-                if (u1 != null) return;
-                var u2 = $j(this).attr("uml");
-                if (u2 == "") return;
-                var s = unescape(encodeURIComponent(u2));
-                if (deflater) {
-                    if (deflater.port && deflater.port.postMessage) {
-                        deflater.port.postMessage(s);
-                    } else {
-                        deflater.postMessage(s);
+    private String translateMembers(ApexParser.ParsedClass clazz) {
+        String text = '';
+
+        for(ApexParser.ClassMember member : clazz.members) {
+            Boolean variableToShow = member.parameters == '' && showPublicVariables;
+            Boolean memberToShow = member.parameters != '' && showPublicMethods;
+            
+            if(variableToShow || memberToShow) {
+                String visibility = (clazz.visibility == 'private' ? '-' : '+');
+                String scope = '';
+                Integer ccMetrics;
+                String styling = '';
+                String endStyling = '';
+                if (showMetrics) { 
+                    ccMetrics = CodeMetrics.CC(member);
+                    if(highlightCC && ccMetrics > 3) { 
+                        styling += '<color:royalBlue >';
+                        //endStyling += '</color>';
                     }
-                } else {
-                    setTimeout(function () {
-                        done_deflating({
-                            data: deflate(s)
-                        });
-                    }, 100);
+                    if(highlightCC && ccMetrics > 5) { 
+                        styling += '<color:red >';
+                        //endStyling += '</color>';
+                    }
                 }
-                done = 1;
-            });
+                
+                if(clazz.scope == 'static' || clazz.scope == 'abstract') {
+                    scope = ' {' + clazz.scope + '} ';
+                }
+                text += '\n';
+                //text += styling;
+                text += visibility + styling +  scope + member.returnType + ' ' + member.name;
+                
+                if(showMetrics & memberToShow) {
+                    text += ' (CC = ' + ccMetrics + ', LOC = ' + CodeMetrics.LOC(member) + ')';	      
+                }
+                else {
+                    text += member.parameters;
+                }
+                
+                text += endStyling;
+            }
+            
         }
-    </script>   
-   
-</apex:page>
+        
+        text = ' {\n' + text;
+        //if(highlightCC & memberToShow) { text += ' #Red ';  }
+        text += '\n}\n';
+        return text;
+    }
+}
