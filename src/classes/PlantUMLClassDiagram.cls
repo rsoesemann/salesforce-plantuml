@@ -78,11 +78,11 @@ public class PlantUMLClassDiagram {
                 String endStyling = '';
                 if (showMetrics) { 
                     ccMetrics = CodeMetrics.CC(member);
-                    if(highlightCC && ccMetrics > 3) { 
+                    if(highlightCC && ccMetrics > 5) { 
                         styling += '<color:royalBlue >';
                         //endStyling += '</color>';
                     }
-                    if(highlightCC && ccMetrics > 5) { 
+                    if(highlightCC && ccMetrics > 10) { 
                         styling += '<color:red >';
                         //endStyling += '</color>';
                     }
