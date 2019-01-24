@@ -1,12 +1,17 @@
-# PlantUML diagram generator for Salesforce orgs #
+# PlantUML diagram generator for Salesforce orgs [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1eabf2af4fa64f229816eb01b450a7d2)](https://www.codacy.com/app/rsoesemann/salesforce-plantuml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsoesemann/salesforce-plantuml&amp;utm_campaign=Badge_Grade)
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=SalesforcePlantUML">
+<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=salesforce-plantuml">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
 
 SalesforcePlantUML is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
 The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
+
+<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=SalesforcePlantUML">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+</a>
 
 > PlantUML is a free and open source UML tool for drawing UML diagrams from a simple and human readable text description. It ca be used as a stand-alone application or can be used from many different IDEs.[1] Dependencies for PlantUML are a Java virtual machine and an installation of Graphviz.
 To create the UML diagrams, PlantUML has a meta-language defined that allows the diagram creator to describe the UML as a series of text statements which the graphics engine translates into standard UML notation. The graphics engine is written in Java and is distributed in both JAR and source code form. [2]
