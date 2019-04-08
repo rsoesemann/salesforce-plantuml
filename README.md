@@ -1,6 +1,6 @@
-# PlantUML diagram generator for Salesforce orgs #
+# PlantUML diagram generator for Salesforce orgs [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1eabf2af4fa64f229816eb01b450a7d2)](https://www.codacy.com/app/rsoesemann/salesforce-plantuml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsoesemann/salesforce-plantuml&amp;utm_campaign=Badge_Grade)
 
-<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=SalesforcePlantUML">
+<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=salesforce-plantuml">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
 </a>
