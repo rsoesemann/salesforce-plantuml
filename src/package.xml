@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>plantuml4force</fullName>
-    <version>28.0</version>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>U2G_ERD</namespacePrefix>
     <types>
-        <members>*</members>
+        <members>ApexClassForTests</members>
+        <members>ApexParser</members>
+        <members>ClassDiagramCreatorCtrl</members>
+        <members>CodeMetrics</members>
+        <members>ERDCreatorCtrl</members>
+        <members>MultiselectController</members>
+        <members>MultiselectControllerTest</members>
+        <members>PlantUMLClassDiagram</members>
+        <members>PlantUMLERDiagram</members>
+        <members>SelectOptionSorter</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>MultiselectPicklist</members>
         <name>ApexComponent</name>
     </types>
     <types>
-        <members>*</members>
+        <members>classDiagramCreator</members>
+        <members>erdCreator</members>
         <name>ApexPage</name>
     </types>
     <types>
-        <members>*</members>
-        <name>ApexTrigger</name>
-    </types>
-    <types>
-        <members>*</members>
+        <members>jquery_min_js</members>
+        <members>rawdeflate_js</members>
         <name>StaticResource</name>
     </types>
+    <version>45.0</version>
 </Package>

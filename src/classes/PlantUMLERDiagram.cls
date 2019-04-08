@@ -64,7 +64,7 @@ public class PlantUMLERDiagram {
         }
         Schema.DescribeSObjectResult objectDescribe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
         
-        text += '\nclass ' + objectDescribe.getName().removeEnd('__c') + (objectDescribe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
+        text += '\nclass ' + objectName.removeEnd('__c') + (objectDescribe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
                 translateObjectAttributes(objectDescribe) +
                 '\n}';
                

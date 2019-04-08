@@ -32,8 +32,6 @@
                		<apex:outputLabel value="Show Metrics?" for="showMetrics" />
                		<apex:inputCheckbox value="{!classDiagram.showMetrics}" id="showMetrics" />
                		
-               		<apex:outputLabel value="Highlight high cyclomatic complexity?" for="showHighCC" />
-               		<apex:inputCheckbox value="{!classDiagram.highlightCC}" id="showHighCC" />
                	</apex:panelGrid>                        
                                        
                 <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  

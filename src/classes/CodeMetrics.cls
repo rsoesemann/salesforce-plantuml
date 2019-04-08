@@ -1,7 +1,4 @@
 public class CodeMetrics {
-    //CC = Cyclomatic complexity.
-    //LOC = Lines of code.
-
     private static final Pattern CODE_DECISION_PATTERN = Pattern.compile('(?i)(if|for|while|catch)\\s*\\(.*?\\)');
     private static final Pattern LINES_PATTERN = Pattern.compile('\n');
 

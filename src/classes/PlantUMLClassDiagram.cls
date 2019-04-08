@@ -5,7 +5,6 @@ public class PlantUMLClassDiagram {
     public Boolean showPublicVariables { get; set; }
     public Boolean showPublicMethods { get; set; }
     public Boolean showMetrics { get; set; }
-    public Boolean highlightCC { get; set; }
 
     
     public PlantUMLClassDiagram() {
@@ -14,9 +13,7 @@ public class PlantUMLClassDiagram {
     
 
     public void setClasses(Set<ApexParser.ParsedClass> classes) {
-        this.plantUMLText = 'skinparam packageStyle frame\n';
-        this.plantUMLText += '!define hiCC <size:12><&caret-right></size>\n';
-        this.plantUMLText += 'set namespaceSeparator ::\n';
+        this.plantUMLText = 'skinparam packageStyle frame\nset namespaceSeparator ::\n';
         
         for(ApexParser.ParsedClass clazz : classes) {
             this.plantUMLText += translateClass(clazz);
@@ -24,7 +21,7 @@ public class PlantUMLClassDiagram {
     }
     
 
-    // PRIVATE METHODS
+    // PRIVATE MEHTODS
     
     
     private String translateClass(ApexParser.ParsedClass clazz) {
@@ -73,43 +70,21 @@ public class PlantUMLClassDiagram {
             if(variableToShow || memberToShow) {
                 String visibility = (clazz.visibility == 'private' ? '-' : '+');
                 String scope = '';
-                Integer ccMetrics;
-                String styling = '';
-                String endStyling = '';
-                if (showMetrics) { 
-                    ccMetrics = CodeMetrics.CC(member);
-                    if(highlightCC && ccMetrics > 5) { 
-                        styling += '<color:royalBlue >';
-                        //endStyling += '</color>';
-                    }
-                    if(highlightCC && ccMetrics > 10) { 
-                        styling += '<color:red >';
-                        //endStyling += '</color>';
-                    }
-                }
-                
                 if(clazz.scope == 'static' || clazz.scope == 'abstract') {
                     scope = ' {' + clazz.scope + '} ';
                 }
-                text += '\n';
-                //text += styling;
-                text += visibility + styling +  scope + member.returnType + ' ' + member.name;
+                text += '\n' + visibility +  scope + member.returnType + ' ' + member.name;
                 
                 if(showMetrics & memberToShow) {
-                    text += ' (CC = ' + ccMetrics + ', LOC = ' + CodeMetrics.LOC(member) + ')';	      
+                    text += '(CC = ' + CodeMetrics.CC(member) + ', LOC = ' + CodeMetrics.LOC(member) + ')';
                 }
                 else {
                     text += member.parameters;
                 }
-                
-                text += endStyling;
             }
             
         }
         
-        text = ' {\n' + text;
-        //if(highlightCC & memberToShow) { text += ' #Red ';  }
-        text += '\n}\n';
-        return text;
+        return ' {\n' + text + '\n}\n';
     }
 }
