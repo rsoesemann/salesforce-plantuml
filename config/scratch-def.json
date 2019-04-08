@@ -1,0 +1,18 @@
+{
+    "orgName":"MY_NS-dev",
+    "edition":"Developer",
+    "features":[
+        "CascadeDelete",
+        "DebugApex",
+        "AuthorApex"
+    ],
+    "settings":{
+
+        "orgPreferenceSettings":{
+            "networksEnabled":true,
+            "s1DesktopEnabled":true,
+            "chatterEnabled":true,
+            "translation": true
+        }
+    }
+}
