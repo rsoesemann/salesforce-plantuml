@@ -26,6 +26,15 @@
         <name>ApexPage</name>
     </types>
     <types>
+        <members>PlantUML</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>ClassDiagramCreator</members>
+        <members>ErdCreator</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
         <members>jquery_min_js</members>
         <members>rawdeflate_js</members>
         <name>StaticResource</name>
