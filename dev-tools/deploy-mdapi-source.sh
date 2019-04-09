@@ -92,7 +92,7 @@ echo \
             --targetusername $PACKAGING_ORG_ALIAS \\
             --wait 15\n"
 (cd $PROJECT_ROOT && exec sfdx force:mdapi:deploy \
-                                --deploydir ./mdapi-source/$DEFAULT_PACKAGE_DIR_NAME \
+                                --deploydir ./sfdx-source/$PACKAGE_PREFIX/main/$DEFAULT_PACKAGE_DIR_NAME \
                                 --testlevel RunLocalTests \
                                 --targetusername $PACKAGING_ORG_ALIAS \
                                 --wait 15)

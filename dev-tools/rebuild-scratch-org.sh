@@ -242,19 +242,14 @@ createScratchOrg
 
 # Install any packages (managed or unmanaged).
 # Template for calling this function:
-#installPackage 04ti0000000TzXd "plantuml4force" "PlantUml"
-
-# Assign any permission sets that were added by installed packages.
-# Template for calling this function:
-# assignPermset #PACKAGED_PERMSET_NAME#
+#installPackage 04ti0000000TzXd "fflib" "Apex Commons"
 
 # Push metadata to the new Scratch Org.
 pushMetadata
 
 # Assign any permission sets that were added by your Source Push.
 # Template for calling this function:
-assignPermset ASC_Admin_User
-assignPermset ASC_Normal_User
+# assignPermset PermissionSetName
 
 # Adjust Admin user
 sfdx force:data:record:update -s User -w "Name='User User'" -v "Languagelocalekey=en_US" -u $SCRATCH_ORG_ALIAS
