@@ -1,9 +1,9 @@
 {
   "packageDirectories": [
-    { "path": "sfdx-source/MY_NS", "default": true },
+    { "path": "sfdx-source/U2G_ERD", "default": true },
     { "path": "sfdx-source/unpackaged" }
   ],
-  "namespace": "MY_NS",
+  "namespace": "U2G_ERD",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "45.0"
 }

@@ -206,9 +206,9 @@ function updateSfdxProjectJson () {
   # Use PERLs in-place find-and-replace to modify the line in 
   # sfdx-project.json where the default package directory is set
   # by argument 1.  In other words...
-  #     { "path": "sfdx-source/my_MY_NS", "default": true },
+  #     { "path": "sfdx-source/my_U2G_ERD", "default": true },
   #   becomes....
-  #     { "path": "sfdx-source/new_MY_NS_value", "default": true },
+  #     { "path": "sfdx-source/new_U2G_ERD_value", "default": true },
   perl -pi -e "s#.*\"default\": true.*#    { \"path\": \"sfdx-source/${1}\", \"default\": true },#g;" "$DETECTED_PROJECT_ROOT/sfdx-project.json"
 
   # If the namespace provided is "force-app", delete the line in
@@ -220,9 +220,9 @@ function updateSfdxProjectJson () {
   fi
 
   # Use the same PERL mechanism to modify the "namespace" key-value pair.  Example...
-  #     "namespace": "my_MY_NS",
+  #     "namespace": "my_U2G_ERD",
   #   becomes...
-  #     "namespace": "new_MY_NS_value",
+  #     "namespace": "new_U2G_ERD_value",
   perl -pi -e "s#.*\"namespace\":.*#  \"namespace\": \"${1}\",#g;" "$DETECTED_PROJECT_ROOT/sfdx-project.json"  
 
 }

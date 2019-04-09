@@ -34,12 +34,12 @@
 DEV_HUB_ALIAS="DevHub"
 
 # Namespace Prefix.  Set to empty string ("") if this project is not building a managed package.
-NAMESPACE_PREFIX="MY_NS"
+NAMESPACE_PREFIX="U2G_ERD"
 
 # Package Name.  Specified as part of the Package Detail info in your packaging org. 
 # Surround this value with double-quotes if your package name contains space characters.
 # Set to empty string ("") if this project is not building a managed package.
-PACKAGE_NAME="MY_PACKAGE"
+PACKAGE_NAME="plantuml4force"
 
 # Metadata Package ID.  Refers to the metadata package as a whole.  Must begin with "033".
 # Set to empty string ("") if this project is not building a managed package.
@@ -50,16 +50,16 @@ METADATA_PACKAGE_ID=""
 PACKAGE_VERSION_ID=""
 
 # Default Package Directory. Should match what is set in sfdx-project.json.
-DEFAULT_PACKAGE_DIR_NAME="MY_NS"
+DEFAULT_PACKAGE_DIR_NAME="U2G_ERD"
 
 # Alias for the primary Scratch Org used by this project.
-SCRATCH_ORG_ALIAS="MY_NS-dev"
+SCRATCH_ORG_ALIAS="U2G_ERD-dev"
 
 # Alias for the packaging org for this project.
-PACKAGING_ORG_ALIAS="MY_NS-pck"
+PACKAGING_ORG_ALIAS="U2G_ERD-pck"
 
 # Alias for the subscriber test org used to test managed-beta package installs.
-QA_ORG_ALIAS="MY_NS-qa"
+QA_ORG_ALIAS="U2G_ERD-qa"
 
 # Git Remote URI. SSH or HTTPS URI that points to the Git remote repo used by this project.
 # GitHub is used as an example here, but any Git remote (ie. BitBucket) can be used.
