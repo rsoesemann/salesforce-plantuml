@@ -1,0 +1,19 @@
+{
+    "orgName":"U2G_ERD-dev",
+    "edition":"Developer",
+    "features":[
+        "CascadeDelete",
+        "DebugApex",
+        "AuthorApex",
+        "Communities"
+    ],
+    "settings":{
+
+        "orgPreferenceSettings":{
+            "networksEnabled":true,
+            "s1DesktopEnabled":true,
+            "chatterEnabled":true,
+            "translation": true
+        }
+    }
+}
