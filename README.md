@@ -1,10 +1,6 @@
 # PlantUML diagram generator for Salesforce orgs [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1eabf2af4fa64f229816eb01b450a7d2)](https://www.codacy.com/app/rsoesemann/salesforce-plantuml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rsoesemann/salesforce-plantuml&amp;utm_campaign=Badge_Grade)
 
 [![Deploy](https://deploy-to-sfdx.com/dist/assets/images/DeployToSFDX.svg)](https://deploy-to-sfdx.com)
-sfdx<a href="https://githubsfdeploy.herokuapp.com?owner=rsoesemann&repo=salesforce-plantuml">
-  <img alt="Deploy to Salesforce"
-       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
-</a>
 
 SalesforcePlantUML is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
 The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
