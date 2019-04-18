@@ -249,7 +249,7 @@ pushMetadata
 
 # Assign any permission sets that were added by your Source Push.
 # Template for calling this function:
-# assignPermset PermissionSetName
+assignPermset PlantUML
 
 # Adjust Admin user
 sfdx force:data:record:update -s User -w "Name='User User'" -v "Languagelocalekey=en_US" -u $SCRATCH_ORG_ALIAS
