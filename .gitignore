@@ -1,2 +1,6 @@
 /salesforce.schema
 .settings/
+.idea/
+.sfdx/
+IlluminatedCloud/
+projectFilesBackup/
