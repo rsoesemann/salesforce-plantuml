@@ -1,14 +1,18 @@
 {
-  "packageDirectories": [
-    {
-      "path": "sfdx-source",
-      "default": true,
-      "package": "salesforce-plantuml",
-      "versionName": "Summer '19",
-      "versionNumber": "1.0.0.NEXT"
+    "packageDirectories": [
+        {
+            "path": "sfdx-source",
+            "default": true,
+            "package": "salesforce-plantuml",
+            "versionName": "Summer '19",
+            "versionNumber": "2.0.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "44.0",
+    "packageAliases": {
+        "salesforce-plantuml": "0Ho4A0000004C9NSAU",
+        "salesforce-plantuml@2.0.0.1": "04t4A000000YXHFQA4"
     }
-  ],
-  "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "45.0"
 }
