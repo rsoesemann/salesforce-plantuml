@@ -1,7 +1,7 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
+      "path": "sfdx-source",
       "default": true,
       "package": "salesforce-plantuml",
       "versionName": "Summer '19",
