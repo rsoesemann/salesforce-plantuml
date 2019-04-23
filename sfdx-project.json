@@ -1,8 +1,14 @@
 {
   "packageDirectories": [
-    { "path": "sfdx-source/U2G_ERD", "default": true }
+    {
+      "path": "force-app",
+      "default": true,
+      "package": "salesforce-plantuml",
+      "versionName": "Summer '19",
+      "versionNumber": "1.0.0.NEXT"
+    }
   ],
-  "namespace": "U2G_ERD",
+  "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "45.0"
 }
