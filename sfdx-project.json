@@ -1,16 +1,16 @@
 {
     "packageDirectories": [
         {
-            "path": "sfdx-source",
+            "path": "force-app",
             "default": true,
             "package": "salesforce-plantuml",
-            "versionName": "Summer '19",
+            "versionName": "Winter '21",
             "versionNumber": "2.0.0.NEXT"
         }
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "44.0",
+    "sourceApiVersion": "49.0",
     "packageAliases": {
         "salesforce-plantuml": "0Ho4A0000004C9NSAU",
         "salesforce-plantuml@2.0.0.1": "04t4A000000YXHFQA4"

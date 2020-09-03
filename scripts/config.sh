@@ -1,0 +1,5 @@
+#!/bin/bash
+DEV_HUB_ALIAS="DevHubPrivate"
+SCRATCH_ORG_ALIAS="salesforce-plantuml_DEV"
+PACKAGENAME="salesforce-plantuml"
+PACKAGING_ORG_ALIAS="salesforce-plantuml_PCK"

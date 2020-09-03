@@ -1,19 +1,21 @@
 {
-    "orgName":"plantuml_dev",
-    "edition":"Developer",
-    "features":[
-        "CascadeDelete",
-        "DebugApex",
-        "AuthorApex",
-        "Communities"
-    ],
-    "settings":{
-
-        "orgPreferenceSettings":{
-            "networksEnabled":true,
-            "s1DesktopEnabled":true,
-            "chatterEnabled":true,
-            "translation": true
-        }
+  "orgName": "TEMPLATE_DEV",
+  "country": "US",
+  "edition": "Partner Developer",
+  "language": "en_US",
+  "hasSampleData": true,
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+        "enableS1EncryptedStoragePref2": true
+    },
+    "chatterSettings": {
+      "enableChatter": true
+    },
+    "languageSettings": {
+      "enableTranslationWorkbench": true
     }
+  }
 }
