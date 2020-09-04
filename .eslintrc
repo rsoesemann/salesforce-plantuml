@@ -2,8 +2,29 @@
   "parser": "babel-eslint",
   "plugins": ["@lwc/eslint-plugin-lwc"],
   "rules": {
+    "@lwc/lwc/consistent-component-name": "error",
+    "@lwc/lwc/no-api-reassignments": "error",
     "@lwc/lwc/no-deprecated": "error",
+    "@lwc/lwc/no-document-query": "error",
+    "@lwc/lwc/no-leading-uppercase-api-name": "error",
+    "@lwc/lwc/no-unexpected-wire-adapter-usages": "error",
+    "@lwc/lwc/no-unknown-wire-adapters": "error",
     "@lwc/lwc/valid-api": "error",
-    "@lwc/lwc/no-document-query": "error"
+    "@lwc/lwc/valid-track": "error",
+    "@lwc/lwc/valid-wire": "error",
+
+    "@lwc/lwc/no-async-operation": "error",
+    "@lwc/lwc/no-dupe-class-members": "error",
+    "@lwc/lwc/no-inner-html": "error",
+    "@lwc/lwc/no-leaky-event-listeners": "error",
+    "@lwc/lwc/prefer-custom-event": "error",
+
+    "@lwc/lwc/no-async-await": "error",
+    "@lwc/lwc/no-for-of": "error",
+    "@lwc/lwc/no-rest-parameter": "error",
+
+    "@lwc/locker/no-document-location": "error",
+    "@lwc/locker/no-dynamic-import": "error",
+    "@lwc/locker/no-window-top": "error"
   }
 }
