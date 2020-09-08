@@ -7,8 +7,6 @@
     "@lwc/lwc/no-deprecated": "error",
     "@lwc/lwc/no-document-query": "error",
     "@lwc/lwc/no-leading-uppercase-api-name": "error",
-    "@lwc/lwc/no-unexpected-wire-adapter-usages": "error",
-    "@lwc/lwc/no-unknown-wire-adapters": "error",
     "@lwc/lwc/valid-api": "error",
     "@lwc/lwc/valid-track": "error",
     "@lwc/lwc/valid-wire": "error",
