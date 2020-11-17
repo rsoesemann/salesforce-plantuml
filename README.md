@@ -10,6 +10,11 @@ All the information required to render such diagrams is extracted via Apex code 
 This should definitely be replace by code that uses the new [Tooling API](http://www.salesforce.com/us/developer/docs/api_toolingpre/index.htm). 
 Feel free to collaborate.
 
+<a href="https://githubsfdeploy.herokuapp.com">
+  <img alt="Deploy to Salesforce"
+       src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
+</a>
+
 ## /apex/classDiagramCreator page ##
 
 This page renders a UML class diagram that show classes, their attribute, methods, inner classes and relations to other classes.
