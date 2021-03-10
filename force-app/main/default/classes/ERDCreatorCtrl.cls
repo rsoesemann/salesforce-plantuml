@@ -70,7 +70,8 @@ public with sharing class ERDCreatorCtrl {
             
             if(isAllowedObject(objectDescribe)) {
                 String name = objectDescribe.getName();
-                accessibleSObjects.add(new SelectOption(name, name));
+                String label = objectDescribe.getLabel();
+                accessibleSObjects.add(new SelectOption(name, name +  + ' - ' + label));
             }
         }
         SelectOptionSorter.sort(accessibleSObjects, SelectOptionSorter.FieldToSort.Label);

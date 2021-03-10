@@ -1,21 +1,13 @@
 {
-  "orgName": "TEMPLATE_DEV",
-  "country": "US",
-  "edition": "Partner Developer",
-  "language": "en_US",
-  "hasSampleData": true,
+  "orgName": "salesforce-plantuml_DEV",
+  "edition": "Developer",
+  "features": [],
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     },
     "mobileSettings": {
-        "enableS1EncryptedStoragePref2": true
-    },
-    "chatterSettings": {
-      "enableChatter": true
-    },
-    "languageSettings": {
-      "enableTranslationWorkbench": true
+      "enableS1EncryptedStoragePref2": false
     }
   }
 }

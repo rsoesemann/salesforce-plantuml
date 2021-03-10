@@ -10,9 +10,5 @@
     ],
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "49.0",
-    "packageAliases": {
-        "salesforce-plantuml": "0Ho4A0000004C9NSAU",
-        "salesforce-plantuml@2.0.0.1": "04t4A000000YXHFQA4"
-    }
+    "sourceApiVersion": "51.0"
 }

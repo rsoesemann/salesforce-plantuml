@@ -62,15 +62,15 @@ public class PlantUMLERDiagram {
         if(Schema.getGlobalDescribe().get(objectName) == null) {
             objectName = objectName.removeStart(namespace + '__');
         }
-        Schema.DescribeSObjectResult objectDescribe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
+        Schema.DescribeSObjectResult describe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
         
-        text += '\nclass ' + objectName.removeEnd('__c') + (objectDescribe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
-                translateObjectAttributes(objectDescribe) +
+        text += '\nclass ' + objectName.removeEnd('__c') + ' as "' + describe.getLabel() + '"' + (describe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
+                translateObjectAttributes(describe) +
                 '\n}';
                
         // Translate child relationships
-        for(Schema.ChildRelationship relationship : objectDescribe.getChildRelationships()) {
-            text += translateChildRelationship(objectDescribe, relationship);
+        for(Schema.ChildRelationship relationship : describe.getChildRelationships()) {
+            text += translateChildRelationship(describe, relationship);
         }
         
         return text;
