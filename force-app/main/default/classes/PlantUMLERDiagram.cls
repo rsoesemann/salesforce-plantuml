@@ -1,34 +1,36 @@
 public with sharing class PlantUMLERDiagram {
 
-    public String plantUMLText { get; private set; }
+    private Set<String> sobjectNames;
+    private Map<String, Map<String, Boolean>> fieldsCache;
 
+    public String plantUMLText { get; private set; }
     public Boolean showFields { get; set; }
     public Boolean hideStandard { get; set; }
     
-    private Set<String> sobjectNames;
-    private Map<String, Map<String, Boolean>> fieldsCache;
     
-    
+    // CONSTRUCTOR
+
     public PlantUMLERDiagram() {
-        this.plantUMLText = 'skinparam roundCorner 10\n';
-        this.showFields = false;
-        this.hideStandard = true;
+        showFields = false;
+        hideStandard = true;
     }
   
-    
+
+    // PUBLIC
+
     public void setObjects(Set<String> sobjectNames) {
-    	this.sobjectNames = sobjectNames;
-    	
-        if(!sobjectNames.isEmpty()) {
-            for(String objectName : sobjectNames) {
-                this.plantUMLText += translateSObject(objectName);
-            }
+        plantUMLText = 'skinparam roundCorner 10\n';
+
+        this.sobjectNames = sobjectNames;
+
+        for(String objectName : sobjectNames) {
+            plantUMLText += translateSObject(objectName);
         }
     }
     
     
     public String translateSObject(String objectName) {  
-        String text = '';
+        String result = '';
                 
         // Extract namespace from fully qualified name
         String namespace = '';
@@ -43,46 +45,49 @@ public with sharing class PlantUMLERDiagram {
         }
         DescribeSObjectResult describe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
         
-        text += '\nclass ' + objectName + ' as "' + describe.getLabel() + '"' + (describe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
+        result += '\nclass ' + objectName + ' as "' + describe.getLabel() + '"' + (describe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
                 translateObjectAttributes(describe) +
                 '\n}';
                
         // Translate child relationships
         for(ChildRelationship relationship : describe.getChildRelationships()) {
-            text += translateChildRelationship(describe, relationship);
+            result += translateChildRelationship(describe, relationship);
         }
         
-        return text;
+        return result;
     }
     
+
+    // PRIVATE 
+
     private String translateObjectAttributes(DescribeSObjectResult objectDescribe) {
-        String text = '';
+        String result = '';
         
-        if(this.showFields) {
-            text += translateFields(objectDescribe);
+        if(showFields) {
+            result += translateFields(objectDescribe);
         }
                 
-        return text;
+        return result;
     }
     
     
     private String translateChildRelationship(DescribeSObjectResult objectDescribe, ChildRelationship relationship) {
-        String text = '';
+        String result = '';
         
         DescribeSObjectResult child = relationship.getChildSObject().getDescribe();
         String objectName = objectDescribe.getName();
         String childName = child.getName();
         
         if(isRelevantRelationship(objectName, childName)) {
-            text += '\n' + objectName + ' ' + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName + ' : < ' + relationship.getField();
+            result += '\n' + objectName + ' ' + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName + ' : < ' + relationship.getField() + ' (' + relationship.getRelationshipName() + ')';
         }
         
-        return text;
+        return result;
     }
     
     
     private Boolean isRelevantRelationship(String objectName, String childName) {       
-        return this.sobjectNames.contains(childName);
+        return sobjectNames.contains(childName);
     }
         
      
@@ -91,7 +96,7 @@ public with sharing class PlantUMLERDiagram {
         
         for(SObjectField field : objectDescribe.fields.getMap().values()) {
             if(field.getDescribe().isCustom() || !hideStandard) {
-                result += '\n' + field;
+                result += '\n' + field + ' : ' + field.getDescribe().getType();
             }
         }
         
