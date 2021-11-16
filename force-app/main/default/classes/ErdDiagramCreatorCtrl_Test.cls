@@ -14,10 +14,6 @@ private class ErdDiagramCreatorCtrl_Test {
 
         // Verify
         System.assertNotEquals(0, ctrl.accessibleSObjects.size());
-        System.assertNotEquals(null, ctrl.getPermSets());
-        System.assertNotEquals(0, ctrl.getProfiles().size());
-        System.assertEquals(null, ctrl.erDiagram.permSet);
-        System.assertEquals('System Administrator', ctrl.erDiagram.profile);
         System.assertEquals(0, ctrl.selectedSObjects.size());
     }
     

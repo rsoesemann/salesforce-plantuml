@@ -25,23 +25,11 @@
                			</apex:outputPanel>
                		</apex:facet>
                		
-               		<apex:outputLabel value="Show Related Metadata?" for="showRelated" />
-               		<apex:inputCheckbox value="{!erDiagram.showRelatedMetadata}" id="showRelated" />
-               		
-               		<apex:outputLabel value="Show Self References?" for="showSelfReferences" />
-               		<apex:inputCheckbox value="{!erDiagram.showSelfReferences}" id="showSelfReferences" />
-               		
                		<apex:outputLabel value="Show Fields?" for="showFields" />
                		<apex:inputCheckbox value="{!erDiagram.showFields}" id="showFields" />
                		
-           		    <apex:selectList value="{!erDiagram.profile}" title="Profile" size="1" id="profiles">
-                        <apex:selectOptions value="{!profiles}" />
-                        <apex:actionSupport event="onchange" rerender="permSets" />
-                    </apex:selectList>
-                    
-                    <apex:selectList value="{!erDiagram.permSet}" title="Permission Set" size="1" id="permSets">
-                        <apex:selectOptions value="{!permSets}" />
-                    </apex:selectList>
+               		<apex:outputLabel value="Hide Standard?" for="hideStandard" />
+               		<apex:inputCheckbox value="{!erDiagram.hideStandard}" id="hideStandard" />
                	</apex:panelGrid>                        
                                        
                 <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  

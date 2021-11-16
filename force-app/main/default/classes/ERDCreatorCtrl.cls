@@ -10,35 +10,6 @@ public with sharing class ERDCreatorCtrl {
         accessibleSObjects = getAccessibleSObjects();
         
 		erDiagram = new PlantUMLERDiagram();
-		erDiagram.profile = 'System Administrator';
-    }
-    
-    
-    public List<SelectOption> getProfiles() {    
-        List<SelectOption> profiles = new List<SelectOption>();
-        
-        for(Profile pr : [SELECT Name FROM Profile]) {
-            profiles.add(new SelectOption(pr.Name, pr.Name));
-        }
-        
-        SelectOptionSorter.sort(profiles, SelectOptionSorter.FieldToSort.Label);
-        profiles.add(new SelectOption('NONE', ' - '));
-        
-        return profiles;
-    }
-    
-    
-    public List<SelectOption> getPermSets() {
-        List<SelectOption> permSets = new List<SelectOption>();
-        
-        String profileName = (this.erDiagram.profile == 'NONE') ? null : this.erDiagram.profile;
-        for(PermissionSet ps : [SELECT Name, Label FROM PermissionSet WHERE Profile.Name = :profileName AND (NOT Name LIKE 'X00%')]) {
-            permSets.add(new SelectOption(ps.Name, ps.Name));
-        }
-        
-        SelectOptionSorter.sort(permSets, SelectOptionSorter.FieldToSort.Label);
-        
-        return permSets;    
     }
     
     
