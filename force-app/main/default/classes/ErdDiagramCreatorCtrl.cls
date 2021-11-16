@@ -1,11 +1,12 @@
-public with sharing class ERDCreatorCtrl {
+public with sharing class ErdDiagramCreatorCtrl {
 	
 	public PlantUMLERDiagram erDiagram { get; set; }
     public SelectOption[] accessibleSObjects { get; set; }
     public SelectOption[] selectedSObjects { get; set; }
 
+    // CONSTRUCTOR
      
-    public ERDCreatorCtrl() {
+    public ErdDiagramCreatorCtrl() {
         selectedSObjects = new List<SelectOption>();
         accessibleSObjects = getAccessibleSObjects();
         
@@ -13,7 +14,8 @@ public with sharing class ERDCreatorCtrl {
 		erDiagram.profile = 'System Administrator';
     }
     
-    
+    // PUBLIC
+
     public List<SelectOption> getProfiles() {    
         List<SelectOption> profiles = new List<SelectOption>();
         
@@ -60,7 +62,7 @@ public with sharing class ERDCreatorCtrl {
     }
     
     
-    // PRIVATE METHODS
+    // PRIVATE 
     
     private List<SelectOption> getAccessibleSObjects(){
         List<SelectOption> accessibleSObjects = new List<SelectOption>();
