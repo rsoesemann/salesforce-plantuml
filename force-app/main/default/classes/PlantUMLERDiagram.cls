@@ -19,7 +19,7 @@ public with sharing class PlantUMLERDiagram {
     // PUBLIC
 
     public void setObjects(Set<String> sobjectNames) {
-        plantUMLText = 'skinparam roundCorner 10\n';
+        plantUMLText = '\tskinparam roundCorner 10';
 
         this.sobjectNames = sobjectNames;
 
@@ -43,13 +43,12 @@ public with sharing class PlantUMLERDiagram {
         if(Schema.getGlobalDescribe().get(objectName) == null) {
             objectName = objectName.removeStart(namespace + '__');
         }
+
         DescribeSObjectResult describe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
         
-        result += '\nclass ' + objectName + ' as "' + describe.getLabel() + '"' + (describe.isCustom() ? '' : ' << (S,red) >>') + '{\n' +
-                translateObjectAttributes(describe) +
-                '\n}';
+        result += String.format('\n\n\tclass "{0}" as {1}{2}{3}', new List<String>{ 
+                describe.getLabel(), objectName, (describe.isCustom() ? '' : '<<(S,red)>>'), translateFields(describe)});
                
-        // Translate child relationships
         for(ChildRelationship relationship : describe.getChildRelationships()) {
             result += translateChildRelationship(describe, relationship);
         }
@@ -60,17 +59,6 @@ public with sharing class PlantUMLERDiagram {
 
     // PRIVATE 
 
-    private String translateObjectAttributes(DescribeSObjectResult objectDescribe) {
-        String result = '';
-        
-        if(showFields) {
-            result += translateFields(objectDescribe);
-        }
-                
-        return result;
-    }
-    
-    
     private String translateChildRelationship(DescribeSObjectResult objectDescribe, ChildRelationship relationship) {
         String result = '';
         
@@ -79,7 +67,7 @@ public with sharing class PlantUMLERDiagram {
         String childName = child.getName();
         
         if(isRelevantRelationship(objectName, childName)) {
-            result += '\n' + objectName + ' ' + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName + ' : < ' + relationship.getField() + ' (' + relationship.getRelationshipName() + ')';
+            result += '\n\t' + objectName + ' ' + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName + ' : < ' + relationship.getField() + ' (' + relationship.getRelationshipName() + ')';
         }
         
         return result;
@@ -92,30 +80,23 @@ public with sharing class PlantUMLERDiagram {
         
      
     private String translateFields(DescribeSObjectResult objectDescribe) {
-        String result = '';
+        String result = ' {';
+
+        List<SObjectField> fields = objectDescribe.fields.getMap().values();
         
-        for(SObjectField field : objectDescribe.fields.getMap().values()) {
-            if(field.getDescribe().isCustom() || !hideStandard) {
-                result += '\n' + field + ' : ' + field.getDescribe().getType();
+        if(showFields && !fields.isEmpty()) {
+            for(SObjectField field : fields) {
+                if(field.getDescribe().isCustom() || !hideStandard) {
+                    result += '\n\t\t' + field + ' : ' + field.getDescribe().getType();
+                }
             }
+
+            result += '\n\t}';
+        }
+        else {
+            result += '}';
         }
         
         return result;
     } 
-    
-    
-    private String translateRelatedSObjects(List<SObject> related, String sectionLabel) {
-        String result = '';
-        
-        if(related != null) {
-            if(!related.isEmpty()) {
-                result += '\n-- ' + sectionLabel + ' --';
-            }
-            
-            for(SObject o : related) {
-                result += '\n' + o.get('Name');
-            }
-        }     
-        return result;   
-    }
 }

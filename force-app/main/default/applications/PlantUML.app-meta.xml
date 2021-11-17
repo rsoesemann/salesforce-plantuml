@@ -10,7 +10,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <label>PlantUML</label>
     <navType>Standard</navType>
-    <tabs>ClassDiagramCreator</tabs>
     <tabs>ErdCreator</tabs>
+    <tabs>ClassDiagramCreator</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>
