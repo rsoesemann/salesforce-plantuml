@@ -33,6 +33,9 @@
                		
                		<apex:outputLabel value="Show Relation Names?" for="showRelationNames" />
                		<apex:inputCheckbox value="{!erDiagram.showRelationNames}" id="showRelationNames" />
+               		
+               		<apex:outputLabel value="Auto-add Parents?" for="autoAddParents" />
+               		<apex:inputCheckbox value="{!erDiagram.autoAddParents}" id="autoAddParents" />
                	</apex:panelGrid>                        
                                        
                 <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  

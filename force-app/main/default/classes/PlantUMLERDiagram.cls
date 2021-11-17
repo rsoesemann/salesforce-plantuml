@@ -1,12 +1,14 @@
 public with sharing class PlantUMLERDiagram {
 
-    private Set<String> sobjectNames;
-    private Map<String, Map<String, Boolean>> fieldsCache;
+    private transient Map<SObjectType, List<ChildRelationship>> selected;
+    private transient Map<SObjectType, List<ChildRelationship>> parents;
 
-    public String plantUMLText { get; private set; }
     public Boolean showFields { get; set; }
     public Boolean hideStandard { get; set; }
     public Boolean showRelationNames { get; set; }
+    public Boolean autoAddParents { get; set; }
+
+    public String plantUMLText { get; private set; }
     
     
     // CONSTRUCTOR
@@ -15,65 +17,105 @@ public with sharing class PlantUMLERDiagram {
         showFields = false;
         hideStandard = true;
         showRelationNames = false;
+        autoAddParents = false;
     }
   
 
     // PUBLIC
 
-    public void setObjects(Set<String> sobjectNames) {
-        plantUMLText = '\tskinparam roundCorner 10';
+    public void setObjects(Set<String> typeNames) {
+        prepare(typeNames);
+        plantUMLText = render();
+    }
 
-        this.sobjectNames = sobjectNames;
 
-        for(String objectName : sobjectNames) {
-            plantUMLText += translateSObject(objectName);
+    // PRIVATE 
+
+    private void prepare(Set<String> typeNames) {
+        selected = new Map<SObjectType, List<ChildRelationship>>();
+        parents = new Map<SObjectType, List<ChildRelationship>>();
+
+        for(String name : typeNames) {
+            SObjectType type = type(name);
+            selected.put(type, type.getDescribe().getChildRelationships());
+
+            if(autoAddParents) {
+                for(SObjectField field: type.getDescribe().fields.getMap().values()) {
+                    if(field.getDescribe().getType() == Schema.DisplayType.Reference) {
+                        SObjectType parent = field.getDescribe().getReferenceTo()[0];
+                        parents.put(type, parent.getDescribe().getChildRelationships());
+                    }
+                }
+            }
         }
     }
-    
-    
-    public String translateSObject(String objectName) {  
+
+
+    private String render() {
+        String result = '\tskinparam roundCorner 10';
+
+        if(autoAddParents) {
+            result = '\npackage "Selected" {\n' + render(selected) + '\n}\n';
+            result += render(parents);
+        }
+        else {
+            result += render(selected);
+        }
+
+        return result;
+    }
+
+
+
+    private String render(Map<SObjectType, List<ChildRelationship>> typeMap) {
         String result = '';
-                
-        // Extract namespace from fully qualified name
+
+        for(SObjectType type : typeMap.keySet()) {
+            result += translate(type);
+
+            for(ChildRelationship relationship : typeMap.get(type)) {
+                if(selected.containsKey(relationship.getChildSObject())) {
+                    result += translate(type.getDescribe(), relationship);
+                }
+            }
+        }
+
+        return result;
+    }
+
+
+    private SObjectType type(String objectName) {
         String namespace = '';
         List<String> fragments = objectName.split('__');
         if(fragments.size()==3) {
             namespace = fragments.get(0);
         }
 
-        // Remove namespace suffix when current object is Managed in this org
         if(Schema.getGlobalDescribe().get(objectName) == null) {
             objectName = objectName.removeStart(namespace + '__');
         }
 
-        DescribeSObjectResult describe = Schema.getGlobalDescribe().get(objectName).getDescribe();   
-        
-        result += String.format('\n\n\tclass "{0}" as {1}{2}{3}', new List<String>{ 
-                describe.getLabel(), objectName, (describe.isCustom() ? '' : '<<(S,red)>>'), translateFields(describe)});
+        return Schema.getGlobalDescribe().get(objectName);   
+    }
+
+
+    private String translate(SObjectType type) {  
+        String result = '';
+
+        DescribeSObjectResult describe = type.getDescribe();
+                
+        result += String.format('\n\n\tclass "{0}" as {1}{2}', new List<String>{ 
+                    describe.getLabel(), describe.getLocalName(), translateFields(describe)});
                
-        for(ChildRelationship relationship : describe.getChildRelationships()) {
-            result += translateChildRelationship(describe, relationship);
-        }
-        
         return result;
     }
     
 
-    // PRIVATE 
+    private String translate(DescribeSObjectResult describe, ChildRelationship relationship) {
+        String result = '\n\t' + describe.getLocalName() + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + relationship.getChildSObject().getDescribe().getName();
 
-    private String translateChildRelationship(DescribeSObjectResult objectDescribe, ChildRelationship relationship) {
-        String result = '';
-        
-        DescribeSObjectResult child = relationship.getChildSObject().getDescribe();
-        String objectName = objectDescribe.getName();
-        String childName = child.getName();
-        
-        if(isRelevantRelationship(objectName, childName)) {
-            result += '\n\t' + objectName + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName;
-
-            if(showRelationNames) {
-                result +=  ': < ' + removeSuffix('' + relationship.getField() ) + ' (' + removeSuffix( relationship.getRelationshipName() ) + ')';
-            }
+        if(showRelationNames) {
+            result +=  ': < ' + removeSuffix('' + relationship.getField() ) + ' (' + removeSuffix( relationship.getRelationshipName() ) + ')';
         }
         
         return result;
@@ -82,11 +124,6 @@ public with sharing class PlantUMLERDiagram {
 
     private String removeSuffix(String original) {
         return (original == null) ? original : original.removeEnd('__c').removeEnd('__r');
-    }
-    
-
-    private Boolean isRelevantRelationship(String objectName, String childName) {       
-        return sobjectNames.contains(childName);
     }
         
      
@@ -114,4 +151,4 @@ public with sharing class PlantUMLERDiagram {
         
         return result;
     } 
-}
+}   

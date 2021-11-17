@@ -27,7 +27,7 @@ public with sharing class ErdDiagramCreatorCtrl {
         		sobjectNames.add(so.getValue());
         	}
         	
-            this.erDiagram.setObjects(sobjectNames);
+            erDiagram.setObjects(sobjectNames);
         }
         return null;
     }
@@ -45,6 +45,7 @@ public with sharing class ErdDiagramCreatorCtrl {
             String label = objectDescribe.getLabel();
             accessibleSObjects.add(new SelectOption(name, name +  + ' - ' + label));
         }
+
         SelectOptionSorter.sort(accessibleSObjects, SelectOptionSorter.FieldToSort.Label);
         
         return accessibleSObjects;
@@ -56,7 +57,8 @@ public with sharing class ErdDiagramCreatorCtrl {
         return objectDescribe.isCustom() || !erDiagram.hideStandard
                 && !name.endsWith('History') 
                 && !name.endsWith('Feed') 
-                && !name.endsWith('Tag') 
-                && !name.endsWith('Share') ;   
+                && !name.endsWith('Tag')  
+                && !name.endsWith('Event') 
+                && !name.endsWith('Share');   
     }
 }
