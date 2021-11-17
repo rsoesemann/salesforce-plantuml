@@ -67,13 +67,26 @@ public with sharing class PlantUMLERDiagram {
         String childName = child.getName();
         
         if(isRelevantRelationship(objectName, childName)) {
-            result += '\n\t' + objectName + ' ' + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName + ' : < ' + relationship.getField() + ' (' + relationship.getRelationshipName() + ')';
+            result += String.format(
+                        '\n\t{0} {1}{2} : < {3} ({4})', 
+                        new List<String>{ 
+                            objectName, 
+                            (relationship.isCascadeDelete() ? ' o-- ' : ' *-- '), 
+                            childName,
+                            removeSuffix( '' + relationship.getField() ),
+                            removeSuffix( relationship.getRelationshipName() )
+                        });
         }
         
         return result;
     }
     
+
+    private String removeSuffix(String original) {
+        return (original == null) ? original : original.removeEnd('__c').removeEnd('__r');
+    }
     
+
     private Boolean isRelevantRelationship(String objectName, String childName) {       
         return sobjectNames.contains(childName);
     }
