@@ -6,6 +6,7 @@ public with sharing class PlantUMLERDiagram {
     public String plantUMLText { get; private set; }
     public Boolean showFields { get; set; }
     public Boolean hideStandard { get; set; }
+    public Boolean showRelationNames { get; set; }
     
     
     // CONSTRUCTOR
@@ -13,6 +14,7 @@ public with sharing class PlantUMLERDiagram {
     public PlantUMLERDiagram() {
         showFields = false;
         hideStandard = true;
+        showRelationNames = false;
     }
   
 
@@ -67,15 +69,11 @@ public with sharing class PlantUMLERDiagram {
         String childName = child.getName();
         
         if(isRelevantRelationship(objectName, childName)) {
-            result += String.format(
-                        '\n\t{0} {1}{2} : < {3} ({4})', 
-                        new List<String>{ 
-                            objectName, 
-                            (relationship.isCascadeDelete() ? ' o-- ' : ' *-- '), 
-                            childName,
-                            removeSuffix( '' + relationship.getField() ),
-                            removeSuffix( relationship.getRelationshipName() )
-                        });
+            result += '\n\t' + objectName + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + childName;
+
+            if(showRelationNames) {
+                result +=  ': < ' + removeSuffix('' + relationship.getField() ) + ' (' + removeSuffix( relationship.getRelationshipName() ) + ')';
+            }
         }
         
         return result;
@@ -95,10 +93,14 @@ public with sharing class PlantUMLERDiagram {
     private String translateFields(DescribeSObjectResult objectDescribe) {
         String result = ' {';
 
-        List<SObjectField> fields = objectDescribe.fields.getMap().values();
+        Map<String, SObjectField> fields = objectDescribe.fields.getMap();
+        List<String> ordered = new List<String>(fields.keySet());
+        ordered.sort();
         
         if(showFields && !fields.isEmpty()) {
-            for(SObjectField field : fields) {
+            for(String name : ordered) {
+                SObjectField field = fields.get(name);
+
                 if(field.getDescribe().isCustom() || !hideStandard) {
                     result += '\n\t\t' + field + ' : ' + field.getDescribe().getType();
                 }

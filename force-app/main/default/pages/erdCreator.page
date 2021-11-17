@@ -30,6 +30,9 @@
                		
                		<apex:outputLabel value="Hide Standard?" for="hideStandard" />
                		<apex:inputCheckbox value="{!erDiagram.hideStandard}" id="hideStandard" />
+               		
+               		<apex:outputLabel value="Show Relation Names?" for="showRelationNames" />
+               		<apex:inputCheckbox value="{!erDiagram.showRelationNames}" id="showRelationNames" />
                	</apex:panelGrid>                        
                                        
                 <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  
