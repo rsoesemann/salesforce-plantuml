@@ -13,7 +13,7 @@
   MultiselectController updates its SelectOption[] variables from these hidden 
   elements.
  -->
-<apex:component controller="MultiselectController">
+<apex:component controller="MultiselectCtrl">
   <apex:attribute name="leftLabel" description="Label on left listbox."
     type="String" required="true" />
   <apex:attribute name="rightLabel" description="Label on right listbox."

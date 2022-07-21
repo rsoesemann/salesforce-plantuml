@@ -1,66 +1,53 @@
-public with sharing class PlantUMLERDiagram {
+public with sharing class PlantUmlErdDiagram {
 
     private transient Map<SObjectType, List<ChildRelationship>> selected;
-    private transient Map<SObjectType, List<ChildRelationship>> parents;
 
+    public Boolean showLabels { get; set; }
     public Boolean showFields { get; set; }
     public Boolean hideStandard { get; set; }
     public Boolean showRelationNames { get; set; }
-    public Boolean autoAddParents { get; set; }
 
     public String plantUMLText { get; private set; }
     
     
     // CONSTRUCTOR
 
-    public PlantUMLERDiagram() {
+    public PlantUmlErdDiagram() {
+        showLabels = false;
         showFields = false;
-        hideStandard = true;
+        hideStandard = false;
         showRelationNames = false;
-        autoAddParents = false;
     }
-  
+
 
     // PUBLIC
 
-    public void setObjects(Set<String> typeNames) {
-        prepare(typeNames);
+    public void setTypes(Set<String> types) {
+        prepare(types);
         plantUMLText = render();
     }
 
 
     // PRIVATE 
 
-    private void prepare(Set<String> typeNames) {
+    private void prepare(Set<String> types) {
         selected = new Map<SObjectType, List<ChildRelationship>>();
-        parents = new Map<SObjectType, List<ChildRelationship>>();
 
-        for(String name : typeNames) {
+        for(String name : types) {
             SObjectType type = type(name);
             selected.put(type, type.getDescribe().getChildRelationships());
-
-            if(autoAddParents) {
-                for(SObjectField field: type.getDescribe().fields.getMap().values()) {
-                    if(field.getDescribe().getType() == Schema.DisplayType.Reference) {
-                        SObjectType parent = field.getDescribe().getReferenceTo()[0];
-                        parents.put(type, parent.getDescribe().getChildRelationships());
-                    }
-                }
-            }
         }
     }
 
 
     private String render() {
-        String result = '\tskinparam roundCorner 10';
+        String result = '\nskinparam roundCorner 10 \nset namespaceSeparator __ \nhide circle ';
 
-        if(autoAddParents) {
-            result = '\npackage "Selected" {\n' + render(selected) + '\n}\n';
-            result += render(parents);
+        if(!showFields) {
+            result += '\nhide members';
         }
-        else {
-            result += render(selected);
-        }
+
+        result += render(selected);
 
         return result;
     }
@@ -100,14 +87,11 @@ public with sharing class PlantUMLERDiagram {
 
 
     private String translate(SObjectType type) {  
-        String result = '';
-
         DescribeSObjectResult describe = type.getDescribe();
-                
-        result += String.format('\n\n\tclass "{0}" as {1}{2}', new List<String>{ 
-                    describe.getLabel(), describe.getLocalName(), translateFields(describe)});
-               
-        return result;
+        String label = (showLabels) ? '<<' + describe.getLabel() + '>>' : '';
+
+        return String.format('\n\n\tclass {0}{1} {2}', 
+                                new List<String>{ describe.getLocalName(), label, translateFields(describe)});
     }
     
 
@@ -115,7 +99,7 @@ public with sharing class PlantUMLERDiagram {
         String result = '\n\t' + describe.getLocalName() + (relationship.isCascadeDelete() ? ' o-- ' : ' *-- ') + relationship.getChildSObject().getDescribe().getName();
 
         if(showRelationNames) {
-            result +=  ': < ' + removeSuffix('' + relationship.getField() ) + ' (' + removeSuffix( relationship.getRelationshipName() ) + ')';
+            result +=  ': < ' + removeSuffix('' + relationship.getField() );
         }
         
         return result;
@@ -127,10 +111,10 @@ public with sharing class PlantUMLERDiagram {
     }
         
      
-    private String translateFields(DescribeSObjectResult objectDescribe) {
+    private String translateFields(DescribeSObjectResult describe) {
         String result = ' {';
 
-        Map<String, SObjectField> fields = objectDescribe.fields.getMap();
+        Map<String, SObjectField> fields = describe.fields.getMap();
         List<String> ordered = new List<String>(fields.keySet());
         ordered.sort();
         

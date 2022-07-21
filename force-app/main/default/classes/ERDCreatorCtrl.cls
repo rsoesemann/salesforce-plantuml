@@ -1,62 +1,66 @@
 public with sharing class ERDCreatorCtrl {
-	
-	public PlantUMLERDiagram erDiagram { get; set; }
-    public SelectOption[] accessibleSObjects { get; set; }
-    public SelectOption[] selectedSObjects { get; set; }
 
+    public SelectOption[] options { get; set; }
+    public SelectOption[] selection { get; set; }
+	public PlantUmlErdDiagram diagram { get; set; }
+
+
+    // CONSTRUCTOR
      
     public ERDCreatorCtrl() {
-        selectedSObjects = new List<SelectOption>();
-        accessibleSObjects = getAccessibleSObjects();
+        diagram = new PlantUmlErdDiagram();
         
-		erDiagram = new PlantUMLERDiagram();
+        selection = new List<SelectOption>();
+        options = getOptions();
     }
     
+    // PUBLIC
     
     public PageReference doCreateDiagram() {
-        
-        if(selectedSObjects.isEmpty()) {
-            ApexPages.Message msg = new ApexPages.Message(ApexPages.Severity.Info, 'Please select at least one sobject.');
-            ApexPages.addMessage(msg);
-        }
-        else {
-        	Set<String> sobjectNames = new Set<String>();
-        	for(SelectOption so : selectedSObjects) {
-        		sobjectNames.add(so.getValue());
+        if(!selection.isEmpty()) {
+        	Set<String> types = new Set<String>();
+
+        	for(SelectOption option : selection) {
+        		types.add(option.getValue());
         	}
         	
-            this.erDiagram.setObjects(sobjectNames);
+            diagram.setTypes(types);
         }
+        else {
+            ApexPages.addMessage( new ApexPages.Message(ApexPages.Severity.Info, 'Please select at least one sobject.') );
+        }
+
         return null;
     }
     
     
-    // PRIVATE METHODS
+    // PRIVATE 
     
-    private List<SelectOption> getAccessibleSObjects(){
-        List<SelectOption> accessibleSObjects = new List<SelectOption>();
+    private List<SelectOption> getOptions(){
+        List<SelectOption> result = new List<SelectOption>();
     
-        for(Schema.SObjectType type : Schema.getGlobalDescribe().values()) {
-            Schema.DescribeSObjectResult objectDescribe = type.getDescribe();
+        for(SObjectType type : Schema.getGlobalDescribe().values()) {
+            DescribeSObjectResult describe = type.getDescribe();
             
-            if(isAllowedObject(objectDescribe)) {
-                String name = objectDescribe.getName();
-                String label = objectDescribe.getLabel();
-                accessibleSObjects.add(new SelectOption(name, name +  + ' - ' + label));
+            if(isAllowed(describe)) {
+                String name = describe.getName();
+                result.add( new SelectOption(name, name +  + ' - ' + describe.getLabel()) );
             }
         }
-        SelectOptionSorter.sort(accessibleSObjects, SelectOptionSorter.FieldToSort.Label);
+
+        SelectOptionSorter.sort(result, SelectOptionSorter.FieldToSort.Label);
         
-        return accessibleSObjects;
+        return result;
     }
     
     
-    private Boolean isAllowedObject(Schema.DescribeSObjectResult objectDescribe) {
-        String name = objectDescribe.getName();
-        return objectDescribe.isAccessible() 
-               && !name.endsWith('History') 
-               && !name.endsWith('Feed') 
-               && !name.endsWith('Tag') 
-               && !name.endsWith('Share') ;   
+    private Boolean isAllowed(DescribeSObjectResult describe) {
+        String name = describe.getName();
+        return describe.isCustom() || !diagram.hideStandard
+                && !name.endsWith('History') 
+                && !name.endsWith('Feed') 
+                && !name.endsWith('Tag')  
+                && !name.endsWith('Event') 
+                && !name.endsWith('Share');   
     }
 }

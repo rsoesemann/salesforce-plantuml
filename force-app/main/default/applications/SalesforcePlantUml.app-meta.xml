@@ -4,13 +4,12 @@
         <headerColor>#0070D2</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
-    <description>Renders UML diagrams for Apex Classes and SObjects</description>
+    <description>Auto-layouted and reusable UML diagrams of your metadata</description>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <label>PlantUML</label>
+    <label>PlantUml for Salesforce</label>
     <navType>Standard</navType>
     <tabs>ErdCreator</tabs>
-    <tabs>ClassDiagramCreator</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>

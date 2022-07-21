@@ -1,14 +1,10 @@
 # PlantUML diagram generator for Salesforce orgs
 
-SalesforcePlantUML is a native Force.com application that renders UML class diagrams for a given set of Apex classes or SObjects. 
+SalesforcePlantUML is a native Force.com application that renders UML diagrams from your orgs metadata. Currently it supports ERD diagrams from your SObjects. 
 The diagrams are rendered by an external declarative UML service / library called [PlantUML](http://plantuml.sourceforge.net/).
 
 > PlantUML is a free and open source UML tool for drawing UML diagrams from a simple and human readable text description. It ca be used as a stand-alone application or can be used from many different IDEs.[1] Dependencies for PlantUML are a Java virtual machine and an installation of Graphviz.
 To create the UML diagrams, PlantUML has a meta-language defined that allows the diagram creator to describe the UML as a series of text statements which the graphics engine translates into standard UML notation. The graphics engine is written in Java and is distributed in both JAR and source code form. [2]
-
-All the information required to render such diagrams is extracted via Apex code and very ugly ;) and unstable Regular Expressions. 
-This should definitely be replace by code that uses the new [Tooling API](http://www.salesforce.com/us/developer/docs/api_toolingpre/index.htm). 
-Feel free to collaborate.
 
 <a href="https://githubsfdeploy.herokuapp.com">
   <img alt="Deploy to Salesforce"
@@ -27,18 +23,6 @@ This page render a UML class diagram that show standard and custom SObjects, the
 and for SObjects including field permissions and related metadata (pages, trigger,...)
 
 > ![Page /apex/erdCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_erd.png)
-
-## /apex/classDiagramCreator page ##
-
-This page renders a UML class diagram that show classes, their attribute, methods, inner classes and relations to other classes.
-It also calculates basic complexity metrics like LOC and Cyclomatic complexity.
-
-1.  Open page YOUR_ORG_URL/apex/classDiagramCreator
-2.  Select classes (If you choose too many or too complex classes you might get Limit errors.)
-3   Choose some options
-4.  Wait! (IMPORTANT as the main work is done in Javascript and on a very slow server)
-
-> ![Page /apex/classDiagramCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_class.png)
 
 ## Third-party Code ##
 

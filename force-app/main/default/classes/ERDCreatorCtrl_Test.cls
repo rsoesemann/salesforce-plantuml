@@ -1,8 +1,8 @@
 @IsTest
-private class ErdDiagramCreatorCtrl_Test {
+private class ERDCreatorCtrl_Test {
 
     @IsTest
-    private static void testUIIsPopulatedOnConstructor() {
+    private static void testUiIsPopulatedOnConstructor() {
 
         // Setup
         Test.setCurrentPageReference(Page.erdCreator);
@@ -13,8 +13,8 @@ private class ErdDiagramCreatorCtrl_Test {
         
 
         // Verify
-        System.assertNotEquals(0, ctrl.accessibleSObjects.size());
-        System.assertEquals(0, ctrl.selectedSObjects.size());
+        System.assertNotEquals(0, ctrl.options.size());
+        System.assertEquals(0, ctrl.selection.size());
     }
     
     
@@ -37,12 +37,12 @@ private class ErdDiagramCreatorCtrl_Test {
 
         // Setup 
         Test.setCurrentPageReference(Page.erdCreator);
-        ERDCreatorCtrl pageCtrl = new ERDCreatorCtrl();
+        ERDCreatorCtrl ctrl = new ERDCreatorCtrl();
         
 
         // Execute
-        pageCtrl.selectedSObjects.add(pageCtrl.accessibleSObjects.get(0));
-        pageCtrl.doCreateDiagram();
+        ctrl.selection.add( ctrl.options.get(0) );
+        ctrl.doCreateDiagram();
         
         
         // Verify

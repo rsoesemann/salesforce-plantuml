@@ -9,11 +9,10 @@
         <apex:pageBlock mode="maindetail" >
             <apex:pageBlockSection title="Select objects" columns="2" collapsible="false">
              
-                <!-- Use opensource component https://github.com/metadaddy-sfdc/Visualforce-Multiselect-Picklist -->
-                <c:MultiselectPicklist leftLabel="Accessible SObjects"
-                                       leftOptions="{!accessibleSObjects}"
+                <c:multiselect leftLabel="Accessible SObjects"
+                                       leftOptions="{!options}"
                                        rightLabel="Selected SObjects"
-                                       rightOptions="{!selectedSObjects}"
+                                       rightOptions="{!selection}"
                                        size="14"
                                        width="300px" />
                  
@@ -25,17 +24,17 @@
                			</apex:outputPanel>
                		</apex:facet>
                		
+               		<apex:outputLabel value="Show Labels?" for="showLabels" />
+               		<apex:inputCheckbox value="{!diagram.showLabels}" id="showLabels" />
+               		
                		<apex:outputLabel value="Show Fields?" for="showFields" />
-               		<apex:inputCheckbox value="{!erDiagram.showFields}" id="showFields" />
+               		<apex:inputCheckbox value="{!diagram.showFields}" id="showFields" />
                		
                		<apex:outputLabel value="Hide Standard?" for="hideStandard" />
-               		<apex:inputCheckbox value="{!erDiagram.hideStandard}" id="hideStandard" />
+               		<apex:inputCheckbox value="{!diagram.hideStandard}" id="hideStandard" />
                		
                		<apex:outputLabel value="Show Relation Names?" for="showRelationNames" />
-               		<apex:inputCheckbox value="{!erDiagram.showRelationNames}" id="showRelationNames" />
-               		
-               		<apex:outputLabel value="Auto-add Parents?" for="autoAddParents" />
-               		<apex:inputCheckbox value="{!erDiagram.autoAddParents}" id="autoAddParents" />
+               		<apex:inputCheckbox value="{!diagram.showRelationNames}" id="showRelationNames" />
                	</apex:panelGrid>                        
                                        
                 <apex:commandButton action="{!doCreateDiagram}" value="Create Diagram" />  
@@ -44,7 +43,7 @@
            <apex:pageBlockSection title="Save image as file or URL" columns="1" collapsible="false">
                You can either Right-Click save this image as file or just reuse the image URL. It contains all thats needed to display it dynamically.
             	<br/>
-               <img class="plantuml" uml="{!erDiagram.plantUMLText}" />
+               <img class="plantuml" uml="{!diagram.plantUMLText}" />
            	</apex:pageBlockSection>
         </apex:pageBlock> 
     </apex:form>
@@ -159,5 +158,4 @@
             });
         }
     </script>   
-   
 </apex:page>
