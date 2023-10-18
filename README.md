@@ -22,7 +22,7 @@ This page render a UML class diagram that show standard and custom SObjects, the
 
 and for SObjects including field permissions and related metadata (pages, trigger,...)
 
-> ![Page /apex/erdCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_erd.png)
+![Page /apex/erdCreator](https://raw.github.com/rsoesemann/SalesforcePlantUML/master/resources/plantuml4force_erd.png)
 
 ## Third-party Code ##
 
